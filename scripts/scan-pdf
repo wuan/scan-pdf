@@ -6,10 +6,9 @@ import argparse
 import logging
 import os
 import shutil
-import tempfile
 import subprocess
 
-from scan_pdf import Scanner, Converter, Combiner
+from scan_pdf import Scanner, Converter, Combiner, TempDir
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Produce PDF from Scanner with document-feeder')
@@ -31,33 +30,32 @@ if __name__ == '__main__':
     options = parser.parse_args()
 
     logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger(__name__)
 
-    olddir = os.getcwd()
-    dir = tempfile.mkdtemp(suffix='_scanpdf')
-    os.chdir(dir)
+    origin_dir = os.getcwd()
 
-    print(options)
+    with TempDir() as temp_dir:
+        os.chdir(temp_dir)
 
-    output_file_name = options.output_file_name[0]
+        output_file_name = options.output_file_name[0]
 
-    scanner = Scanner(options)
+        scanner = Scanner(options)
 
-    subprocess.call(['ls', '-la'])
+        output_basenames = scanner.get_page_file_basenames()
 
-    output_basenames = scanner.get_page_file_basenames()
+        if len(output_basenames) > 0:
+            converter = Converter(options)
+            for output_basename in output_basenames:
+                converter.convert(output_basename, scanner.page_file_suffix)
 
-    converter = Converter(options)
-    for output_basename in output_basenames:
-        converter.convert(output_basename, scanner.page_file_suffix)
+            subprocess.call(['ls', '-la'])
 
-    subprocess.call(['ls', '-la'])
+            combiner = Combiner(options)
+            combiner.combine([output_basename + converter.page_file_suffix for output_basename in output_basenames])
 
-    combiner = Combiner(options)
-    combiner.combine([output_basename + converter.page_file_suffix for output_basename in output_basenames])
+            subprocess.call(['ls', '-la'])
 
-    subprocess.call(['ls', '-la'])
-
-    os.chdir(olddir)
-    shutil.move(os.path.join(dir, os.path.basename(output_file_name)), output_file_name)
-
-    shutil.rmtree(dir, ignore_errors=True)
+            os.chdir(origin_dir)
+            shutil.move(os.path.join(temp_dir, os.path.basename(output_file_name)), output_file_name)
+        else:
+            logger.warn("no pages found")
