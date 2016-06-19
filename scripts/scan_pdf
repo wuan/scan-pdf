@@ -1,0 +1,56 @@
+#!/usr/bin/env python
+
+from __future__ import print_function
+
+import os
+import shutil
+import tempfile
+import subprocess
+import glob
+
+def compare_output_names(name1, name2):
+  if len(name1) < len(name2):
+    return -1
+  elif len(name1) > len(name2):
+    return 1
+  elif name1 < name2:
+    return -1
+  elif name1 > name2:
+    return 1
+  else:
+    return 0
+
+output_file_name = "combined.pdf"
+
+olddir = os.getcwd()
+dir =  tempfile.mkdtemp(suffix='_scanpdf')
+os.chdir(dir)
+
+print("tmp dir:", dir)
+
+retval = subprocess.call(['scanimage', '-b', '--mode', 'Gray', '--source', 'Automatic Document Feeder', '--adf-mode', 'Simplex', '--resolution', '300', '-l', '0', '-x', '210', '-t', '0', '-y', '297'])
+print("scan:", retval)
+subprocess.call(['ls', '-la'])
+
+output_files = glob.glob('out*.pnm')
+output_files = sorted(output_files, cmp=compare_output_names)
+
+file_with_extension = [os.path.splitext(output_file) for output_file in output_files]
+output_basenames = [extension[0] for extension in file_with_extension if extension[1] == '.pnm']
+for output_basename in output_basenames:
+  retval = subprocess.call(['convert', '-depth', '1', '-density', '300', '-compress', 'zip', output_basename + '.pnm', output_basename + '.pdf'])
+  print("convert({}):".format(output_basename), retval)
+subprocess.call(['ls', '-la'])
+
+combine_args = ['pdftk']
+for output_basename in output_basenames:
+  combine_args += [output_basename + '.pdf']
+combine_args += ['output', os.path.basename(output_file_name), 'compress']
+retval = subprocess.call(combine_args)
+print("combine:", retval)
+subprocess.call(['ls', '-la'])
+
+os.chdir(olddir)
+shutil.move(os.path.join(dir, os.path.basename(output_file_name)), output_file_name)
+
+shutil.rmtree(dir, ignore_errors=True)
