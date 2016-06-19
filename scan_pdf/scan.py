@@ -48,7 +48,7 @@ class Scanner(object):
 
         logger.info("call %s", " ".join(args))
         retval = subprocess.call(args)
-        logger.info("call retured %d", retval)
+        logger.debug("call retured %d", retval)
 
     def get_page_file_basenames(self):
         output_files = glob.glob('out*' + self.page_file_suffix)

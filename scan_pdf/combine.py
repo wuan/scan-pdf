@@ -12,7 +12,7 @@ class Combiner(object):
 
     def combine(self, page_file_names):
         output_file_name = self.options.output_file_name[0]
-        logger.info("combine %d files into %s", len(page_file_names), output_file_name)
+        logger.info("combine %d pages into %s", len(page_file_names), output_file_name)
         combine_args = ['pdftk']
         combine_args += page_file_names
         combine_args += ['output', os.path.basename(output_file_name), 'compress']
