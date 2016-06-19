@@ -3,6 +3,7 @@
 from __future__ import print_function
 
 import argparse
+import logging
 import os
 import shutil
 import tempfile
@@ -28,6 +29,8 @@ if __name__ == '__main__':
                         default='a4', help='default: a4')
 
     options = parser.parse_args()
+
+    logging.basicConfig(level=logging.INFO)
 
     olddir = os.getcwd()
     dir = tempfile.mkdtemp(suffix='_scanpdf')

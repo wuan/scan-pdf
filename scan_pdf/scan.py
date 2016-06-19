@@ -24,7 +24,7 @@ class Scanner(object):
 
         color_mode = 'Gray'
         if options.color_mode == 'bw':
-            color_mode = 'LineArt'
+            color_mode = 'Lineart'
         elif options.color_mode == 'color':
             color_mode = 'Color'
         args += ['--mode', color_mode]
