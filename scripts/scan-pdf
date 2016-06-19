@@ -45,8 +45,8 @@ if __name__ == '__main__':
 
         if len(output_basenames) > 0:
             converter = Converter(options)
-            for output_basename in output_basenames:
-                converter.convert(output_basename, scanner.page_file_suffix)
+            for page_number, output_basename in enumerate(output_basenames, start=1):
+                converter.convert(output_basename, scanner.page_file_suffix, options.duplex and page_number % 2 == 0)
 
             subprocess.call(['ls', '-la'])
 
