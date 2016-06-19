@@ -1,0 +1,17 @@
+import os
+
+import subprocess
+
+from scan_pdf import logger
+
+
+class Combiner(object):
+    def __init__(self, options):
+        self.options = options
+
+    def combine(self, page_file_names):
+        logger.info("combine %d files into %s", len(page_file_names), self.options.output_file_name)
+        combine_args = ['pdftk']
+        combine_args += page_file_names
+        combine_args += ['output', os.path.basename(self.options.output_file_name), 'compress']
+        return subprocess.call(combine_args)

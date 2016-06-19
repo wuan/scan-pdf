@@ -1,0 +1,4 @@
+assertpy
+pytest-cov
+mock
+lazy
