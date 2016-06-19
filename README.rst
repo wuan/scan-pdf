@@ -1,9 +1,9 @@
 `scan-pdf <https://github.com/wuan/scan-pdf>`_
 ==============================================
 
-.. image:: https://badge.fury.io/py/scanpdf.png
+.. image:: https://badge.fury.io/py/scan-pdf.png
     :alt: PyPi-Package
-    :target: https://badge.fury.io/py/scanpdf
+    :target: https://badge.fury.io/py/scan-pdf
 .. image:: https://travis-ci.org/wuan/scan-pdf.svg?branch=master
     :alt: Build Status
     :target: https://travis-ci.org/wuan/scan-pdf
