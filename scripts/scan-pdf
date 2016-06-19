@@ -6,7 +6,6 @@ import argparse
 import logging
 import os
 import shutil
-import subprocess
 
 from scan_pdf import Scanner, Converter, Combiner, TempDir
 
@@ -48,12 +47,8 @@ if __name__ == '__main__':
             for page_number, output_basename in enumerate(output_basenames, start=1):
                 converter.convert(output_basename, scanner.page_file_suffix, options.duplex and page_number % 2 == 0)
 
-            subprocess.call(['ls', '-la'])
-
             combiner = Combiner(options)
             combiner.combine([output_basename + converter.page_file_suffix for output_basename in output_basenames])
-
-            subprocess.call(['ls', '-la'])
 
             os.chdir(origin_dir)
             shutil.move(os.path.join(temp_dir, os.path.basename(output_file_name)), output_file_name)
