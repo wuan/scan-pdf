@@ -10,5 +10,6 @@ class TempDir(object):
         self.temp_dir = tempfile.mkdtemp(prefix='scanpdf_')
         return self.temp_dir
 
-    def __exit__(self):
+    # noinspection PyUnusedLocal
+    def __exit__(self, type_value, value, traceback):
         shutil.rmtree(self.temp_dir, ignore_errors=True)
