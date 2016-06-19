@@ -1,8 +1,9 @@
 import glob
+import logging
 import os
 import subprocess
 
-from scan_pdf import logger
+logger = logging.getLogger(__name__)
 
 
 class PaperFormat(object):

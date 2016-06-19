@@ -1,9 +1,8 @@
-import os
+import logging
 
 import subprocess
 
-from scan_pdf import logger
-
+logger = logging.getLogger(__name__)
 
 class Converter(object):
     page_file_suffix = '.pdf'
