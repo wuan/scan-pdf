@@ -4,14 +4,14 @@ import glob
 from setuptools import setup, find_packages
 
 setup(
-    name='scan_pdf',
-    version='0.1.1',
+    name='scan-pdf',
+    version='0.1.3',
     packages=find_packages(),
     scripts=glob.glob('scripts/*'),
     description='Tools for using scanners with document feeder',
     author='Andreas Würl',
     author_email='andreas@wuerl.net',
-    url='https://github.com/wuan/scan_pdf',
+    url='https://github.com/wuan/scan-pdf',
     license='Apache-2.0',
     classifiers=[
         'Development Status :: 3 - Alpha',

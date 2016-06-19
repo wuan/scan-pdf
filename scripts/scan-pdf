@@ -1,0 +1,60 @@
+#!/usr/bin/env python
+
+from __future__ import print_function
+
+import argparse
+import os
+import shutil
+import tempfile
+import subprocess
+
+from scan_pdf import Scanner, Converter, Combiner
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Produce PDF from Scanner with document-feeder')
+    parser.add_argument('output_file_name', type=str, nargs=1,
+                        help='name of the produced output file')
+    parser.add_argument('--resolution', dest='resolution', type=int,
+                        default=300,
+                        help='scan resolution DPI (default: 300)')
+    parser.add_argument('--duplex', dest='resolution', action='store_true',
+                        help='scan both sides of document')
+    parser.add_argument('--color-mode', dest='color_mode', action='store',
+                        choices=['bw', 'gray', 'color'],
+                        default='gray', help='default: gray')
+    parser.add_argument('--color-depth', dest='color_depth', default=4)
+    parser.add_argument('--paper-format', dest='paper_format', action='store',
+                        choices=['a4'],
+                        default='a4', help='default: a4')
+
+    options = parser.parse_args()
+
+    olddir = os.getcwd()
+    dir = tempfile.mkdtemp(suffix='_scanpdf')
+    os.chdir(dir)
+
+    print(options)
+
+    output_file_name = options.output_file_name[0]
+
+    scanner = Scanner(options)
+
+    subprocess.call(['ls', '-la'])
+
+    output_basenames = scanner.get_page_file_basenames()
+
+    converter = Converter(options)
+    for output_basename in output_basenames:
+        converter.convert(output_basename, scanner.page_file_suffix)
+
+    subprocess.call(['ls', '-la'])
+
+    combiner = Combiner(options)
+    combiner.combine([output_basename + converter.page_file_suffix for output_basename in output_basenames])
+
+    subprocess.call(['ls', '-la'])
+
+    os.chdir(olddir)
+    shutil.move(os.path.join(dir, os.path.basename(output_file_name)), output_file_name)
+
+    shutil.rmtree(dir, ignore_errors=True)
