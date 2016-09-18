@@ -29,12 +29,11 @@ class Scanner(object):
             color_mode = 'Color'
         args += ['--mode', color_mode]
 
-        args += ['--source', 'Automatic Document Feeder']
-
-        adf_mode = 'Simplex'
-        if options.duplex:
-            adf_mode = 'Duplex'
-        args += ['--adf-mode', adf_mode]
+        if options.flatbed:
+            args += ['--source', 'Flatbed', '--batch-count', '1']
+        else:
+            args += ['--source', 'Automatic Document Feeder']
+            args += ['--adf-mode', 'Duplex' if options.duplex else 'Simplex']
 
         args += ['--resolution', str(options.resolution)]
 

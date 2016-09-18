@@ -16,6 +16,8 @@ if __name__ == '__main__':
     parser.add_argument('--resolution', dest='resolution', type=int,
                         default=300,
                         help='scan resolution DPI (default: 300)')
+    parser.add_argument('--flatbed', dest='flatbed', action='store_true',
+                        help='scan only one page from flatbed glass')
     parser.add_argument('--duplex', dest='duplex', action='store_true',
                         help='scan both sides of document')
     parser.add_argument('--color-mode', dest='color_mode', action='store',
