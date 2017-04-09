@@ -5,9 +5,10 @@ from setuptools import setup, find_packages
 
 setup(
     name='scan-pdf',
-    version='0.1.23',
-    packages=find_packages(),
-    scripts=glob.glob('scripts/*'),
+    version='0.1.28',
+    packages=find_packages(where='./src'),
+    package_dir={'': 'src'},
+    scripts=['src/scan-pdf'],
     description='Tools for using scanners with document feeder',
     author='Andreas Würl',
     author_email='andreas@wuerl.net',

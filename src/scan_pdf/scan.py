@@ -2,6 +2,7 @@ import glob
 import logging
 import os
 import subprocess
+from functools import cmp_to_key
 
 logger = logging.getLogger(__name__)
 
@@ -51,7 +52,7 @@ class Scanner(object):
 
     def get_page_file_basenames(self):
         output_files = glob.glob('out*' + self.page_file_suffix)
-        output_files = sorted(output_files, cmp=self.compare_output_names)
+        output_files = sorted(output_files, key=cmp_to_key(self.compare_output_names))
 
         return [os.path.splitext(output_file)[0] for output_file in output_files]
 
