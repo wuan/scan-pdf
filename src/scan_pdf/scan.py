@@ -38,6 +38,9 @@ class Scanner(object):
 
         args += ['--resolution', str(options.resolution)]
 
+        if options.threshold:
+            args += ['--halftoning', 'None', '--threshold', str(options.threshold)]
+
         if options.paper_format in self.paper_formats:
             paper_format = self.paper_formats[options.paper_format]
 

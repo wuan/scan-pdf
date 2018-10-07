@@ -10,3 +10,5 @@ src/scan_pdf.egg-info/PKG-INFO
 src/scan_pdf.egg-info/SOURCES.txt
 src/scan_pdf.egg-info/dependency_links.txt
 src/scan_pdf.egg-info/top_level.txt
+test/test_combine.py
+test/test_convert.py
