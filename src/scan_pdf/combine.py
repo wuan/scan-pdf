@@ -16,4 +16,9 @@ class Combiner(object):
         combine_args = ['pdftk']
         combine_args += page_file_names
         combine_args += ['output', os.path.basename(output_file_name), 'compress']
-        return subprocess.call(combine_args)
+        returncode = subprocess.call(combine_args)
+
+        if returncode != 0:
+            logger.error("combine failed: {}", combine_args)
+
+        return returncode

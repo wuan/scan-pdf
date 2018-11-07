@@ -23,4 +23,9 @@ class Converter(object):
             args += ['-rotate', '180']
         args += [source_basename + source_suffix, source_basename + self.page_file_suffix]
 
-        return subprocess.call(args)
+        returncode = subprocess.call(args)
+
+        if returncode != 0:
+            logger.error("convert failed: {}", args)
+
+        return returncode
