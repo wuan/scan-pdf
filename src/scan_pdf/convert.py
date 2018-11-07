@@ -26,6 +26,6 @@ class Converter(object):
         returncode = subprocess.call(args)
 
         if returncode != 0:
-            logger.error("convert failed: {}", args)
+            logger.error("convert failed: %s", " ".join(args))
 
         return returncode

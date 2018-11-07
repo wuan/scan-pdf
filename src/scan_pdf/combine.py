@@ -19,6 +19,6 @@ class Combiner(object):
         returncode = subprocess.call(combine_args)
 
         if returncode != 0:
-            logger.error("combine failed: {}", combine_args)
+            logger.error("combine failed: %s", " ".join(combine_args))
 
         return returncode
