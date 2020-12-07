@@ -21,12 +21,18 @@ class Converter(object):
         args += ['-compress', 'zip']
         if flip:
             args += ['-rotate', '180']
-        args += [source_basename + source_suffix, source_basename + self.page_file_suffix]
+        target_file = source_basename + self.page_file_suffix
+        args += [source_basename + source_suffix, target_file]
 
         logger.debug("call: %s", " ".join(args))
         returncode = subprocess.call(args)
 
         if returncode != 0:
             logger.error("convert failed: %s", " ".join(args))
+
+        if not os.path.exists(target_file):
+            logger.error("target file '%s' does not exist", target_file)
+            subprocess.call(["ls", "-la"])
+            subprocess.call(["pwd"])
 
         return returncode

@@ -22,4 +22,9 @@ class Combiner(object):
         if returncode != 0:
             logger.error("combine failed: %s", " ".join(combine_args))
 
+        if not os.path.exists(output_file_name):
+            logger.error("output file '%s' does not exist", output_file_name)
+            subprocess.call(["ls", "-la"])
+            subprocess.call(["pwd"])
+
         return returncode

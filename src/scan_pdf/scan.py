@@ -49,7 +49,7 @@ class Scanner(object):
             args += ['-t', str(paper_format.top)]
             args += ['-y', str(paper_format.height)]
 
-        logger.info("call %s", " ".join(args))
+        logger.debug("call %s", " ".join(args))
         retval = subprocess.call(args)
         logger.debug("call retured %d", retval)
 

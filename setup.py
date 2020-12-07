@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='scan-pdf',
-    version='0.1.33',
+    version='0.1.34',
     packages=find_packages(where='./src'),
     package_dir={'': 'src'},
     scripts=['src/scan-pdf'],
