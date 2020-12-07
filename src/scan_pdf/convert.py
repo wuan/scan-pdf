@@ -23,6 +23,7 @@ class Converter(object):
             args += ['-rotate', '180']
         args += [source_basename + source_suffix, source_basename + self.page_file_suffix]
 
+        logger.debug("call: %s", " ".join(args))
         returncode = subprocess.call(args)
 
         if returncode != 0:
