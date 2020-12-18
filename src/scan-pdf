@@ -6,6 +6,7 @@ import argparse
 import logging
 import os
 import shutil
+import stat
 
 from scan_pdf import Scanner, Converter, Combiner, TempDir
 
@@ -39,6 +40,7 @@ if __name__ == '__main__':
     origin_dir = os.getcwd()
 
     with TempDir() as temp_dir:
+        os.chmod(temp_dir, stat.S_IRWXU |stat.S_IRWXG | stat.S_IRWXO)
         os.chdir(temp_dir)
 
         output_file_name = options.output_file_name[0]
