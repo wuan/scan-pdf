@@ -24,5 +24,5 @@ class CombineTest(unittest.TestCase):
         result = combiner.combine(['foo', 'bar'])
 
         import subprocess
-        subprocess.call.assert_called_with(['pdftk', 'foo', 'bar', 'output', 'output.pdf', 'compress'])
+        subprocess.call.assert_called_with(['pdfunite', 'foo', 'bar', 'output.pdf'])
         assert_that(result).is_equal_to(subprocess.call.return_value)

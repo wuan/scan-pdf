@@ -33,7 +33,5 @@ class Converter(object):
 
         if not os.path.exists(target_file):
             logger.error("target file '%s' does not exist", target_file)
-            subprocess.call(["ls", "-la"])
-            subprocess.call(["pwd"])
 
         return returncode
