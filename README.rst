@@ -28,10 +28,9 @@ supported options
 .. code-block::
 
     > scan-pdf -h
-    usage: scan-pdf [-h] [--resolution RESOLUTION] [--duplex]
-            [--color-mode {bw,gray,color}] [--color-depth COLOR_DEPTH]
-            [--paper-format {A4}]
-            output_file_name
+    usage: scan-pdf [-h] [--resolution RESOLUTION] [--flatbed] [-d] [--duplex] [--color-mode {bw,gray,color}] [--threshold THRESHOLD] [--color-depth COLOR_DEPTH] [--paper-format {A4,A5}] [--paper-left PAPER_LEFT] [--paper-top PAPER_TOP]
+                    [--paper-height PAPER_HEIGHT] [--paper-width PAPER_WIDTH]
+                    output_file_name
 
     Produce PDF from Scanner with document-feeder
 
@@ -41,9 +40,23 @@ supported options
     optional arguments:
       -h, --help            show this help message and exit
       --resolution RESOLUTION
-                scan resolution DPI (default: 300)
+                            scan resolution DPI (default: 300)
+      --flatbed             scan only one page from flatbed glass
+      -d                    enable debug output
       --duplex              scan both sides of document
       --color-mode {bw,gray,color}
-                default: gray
+                            default: gray
+      --threshold THRESHOLD
+                            disabled by default
       --color-depth COLOR_DEPTH
-      --paper-format {A4}   default: A4
+      --paper-format {A4,A5}
+                            default: A4
+      --paper-left PAPER_LEFT
+                            override left offset
+      --paper-top PAPER_TOP
+                            override top offset
+      --paper-height PAPER_HEIGHT
+                            override paper height
+      --paper-width PAPER_WIDTH
+                            override paper width
+

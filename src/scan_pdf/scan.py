@@ -16,8 +16,10 @@ class PaperFormat(object):
 
 
 class Scanner(object):
-    paper_formats = {'A4': PaperFormat(0, 210, 0, 297)}
-    paper_formats = {'A5': PaperFormat(0, 148.5, 0, 218)}
+    paper_formats = {
+        'A4': PaperFormat(0, 210, 0, 297),
+        'A5': PaperFormat(0, 148.5, 0, 218),
+    }
     page_file_suffix = '.pnm'
 
     def __init__(self, options):
@@ -42,13 +44,12 @@ class Scanner(object):
         if options.threshold:
             args += ['--halftoning', 'None', '--threshold', str(options.threshold)]
 
-        if options.paper_format in self.paper_formats:
-            paper_format = self.paper_formats[options.paper_format]
+        paper_format = self.paper_formats.get(options.paper_format, self.paper_formats['A4'])
 
-            args += ['-l', str(paper_format.left)]
-            args += ['-x', str(paper_format.width)]
-            args += ['-t', str(paper_format.top)]
-            args += ['-y', str(paper_format.height)]
+        args += ['-l', str(options.paper_left if options.paper_left else paper_format.left)]
+        args += ['-x', str(options.paper_width if options.paper_width else paper_format.width)]
+        args += ['-t', str(options.paper_top if options.paper_top else paper_format.top)]
+        args += ['-y', str(options.paper_height if options.paper_height else paper_format.height)]
 
         logger.debug("call %s", " ".join(args))
         retval = subprocess.call(args)
