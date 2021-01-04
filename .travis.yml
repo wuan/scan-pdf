@@ -17,7 +17,7 @@ install:
   - pip install python-coveralls
 
 script:
-  - PYTHONPATH=src py.test --cov-report term-missing --cov-config .coveragerc --cov=scan_pdf
+  - PYTHONPATH=src pytest --cov-config .coveragerc --cov=scan_pdf --cov-report xml:reports/coverage.xml --cov-report term --junitxml=reports/junit.xml
 
 after_success:
   - coveralls
