@@ -26,6 +26,9 @@ class Scanner(object):
 
         args = ['scanimage', '-b']
 
+        # TODO: render it through variable
+        args += ["-d", "hpaio:/net/OfficeJet_Pro_7740_series?ip=192.168.8.100"]
+
         color_mode = 'Gray'
         if options.color_mode == 'bw':
             color_mode = 'Lineart'
