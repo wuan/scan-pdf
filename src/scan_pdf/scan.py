@@ -17,6 +17,7 @@ class PaperFormat(object):
 
 class Scanner(object):
     paper_formats = {
+        'A3': PaperFormat(0, 297, 0, 420),
         'A4': PaperFormat(0, 210, 0, 297),
         'A5': PaperFormat(0, 148.5, 0, 218),
     }
