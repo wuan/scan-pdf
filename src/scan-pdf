@@ -14,6 +14,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Produce PDF from Scanner with document-feeder')
     parser.add_argument('output_file_name', type=str, nargs=1,
                         help='name of the produced output file')
+    parser.add_argument('--device', dest='device', type=str,
+                        default=None,
+                        help='optional device locator')
     parser.add_argument('--resolution', dest='resolution', type=int,
                         default=300,
                         help='scan resolution DPI (default: 300)')
