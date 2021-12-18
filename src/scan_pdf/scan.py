@@ -17,6 +17,7 @@ class PaperFormat(object):
 
 class Scanner(object):
     paper_formats = {
+        'A3': PaperFormat(0, 297, 0, 420),
         'A4': PaperFormat(0, 210, 0, 297),
         'A5': PaperFormat(0, 148.5, 0, 218),
     }
@@ -25,6 +26,9 @@ class Scanner(object):
     def __init__(self, options):
 
         args = ['scanimage', '-b']
+
+        # TODO: render it through variable
+        args += ["-d", "hpaio:/net/OfficeJet_Pro_7740_series?ip=192.168.8.100"]
 
         color_mode = 'Gray'
         if options.color_mode == 'bw':
@@ -36,8 +40,7 @@ class Scanner(object):
         if options.flatbed:
             args += ['--source', 'Flatbed', '--batch-count', '1']
         else:
-            args += ['--source', 'Automatic Document Feeder']
-            args += ['--adf-mode', 'Duplex' if options.duplex else 'Simplex']
+            args += ['--source', 'Duplex' if options.duplex else 'ADF']
 
         args += ['--resolution', str(options.resolution)]
 
