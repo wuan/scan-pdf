@@ -1,5 +1,4 @@
 # coding=utf-8
-import glob
 
 from setuptools import setup, find_packages
 
@@ -33,6 +32,13 @@ setup(
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
     ],
-    install_requires=[],
-    tests_require=['pytest-cov', 'mock', 'assertpy'],
+    install_requires=['PyPDF2'],
+    extras_require={
+        'tests': [
+            'pytest-cov',
+            'pytest-mock',
+            'mock',
+            'assertpy',
+        ],
+    },
 )
