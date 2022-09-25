@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='scan-pdf',
-    version='0.2.6',
+    version='0.3.0',
     packages=find_packages(where='./src', exclude='tests'),
     package_dir={'': 'src'},
     scripts=['src/scan-pdf'],
@@ -26,7 +26,6 @@ setup(
         # Specify the Python versions you support here. In particular, ensure
         # that you indicate whether you support Python 2, Python 3 or both.
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
