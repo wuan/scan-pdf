@@ -37,6 +37,7 @@ jobs:
       - name: Tests
         run: |
           pytest --cov=scan_pdf --cov-report xml:reports/coverage.xml --cov-report term --junitxml=reports/junit.xml
+          head -30 reports/coverage.xml
 
       - name: Build
         run: python setup.py sdist
