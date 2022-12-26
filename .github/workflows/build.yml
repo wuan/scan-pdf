@@ -36,7 +36,7 @@ jobs:
 
       - name: Tests
         run: |
-          PYTHONPATH=src pytest --cov-config .coveragerc --cov=scan_pdf --cov-report xml:reports/coverage.xml --cov-report term --junitxml=reports/junit.xml
+          pytest --cov=scan_pdf --cov-report xml:reports/coverage.xml --cov-report term --junitxml=reports/junit.xml
 
       - name: Build
         run: python setup.py sdist
