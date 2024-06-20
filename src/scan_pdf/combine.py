@@ -1,6 +1,6 @@
 import logging
 
-import PyPDF2
+import pypdf
 
 logger = logging.getLogger(__name__)
 
@@ -13,7 +13,7 @@ class Combiner(object):
         output_file_name = self.options.output_file_name[0]
         logger.info("combine %d pages into %s", len(page_file_names), output_file_name)
 
-        merger = PyPDF2.PdfMerger()
+        merger = pypdf.PdfMerger()
 
         for pdf in page_file_names:
             merger.append(pdf)
