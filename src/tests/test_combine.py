@@ -14,7 +14,7 @@ class TestCombine:
 
     @pytest.fixture(scope="session", autouse=True)
     def pdf_merger(self):
-        with patch("PyPDF2.PdfMerger") as pdf_merger:
+        with patch("pypdf.PdfMerger") as pdf_merger:
             yield pdf_merger()
 
     def test_combine(self, pdf_merger):
