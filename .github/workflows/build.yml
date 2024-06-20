@@ -35,14 +35,14 @@ jobs:
       - name: Setup environment
         run: poetry install
       - name: Show environment
-        run: pip list
+        run: poetry run pip list
       - name: Tests
         run: |
-          pytest --cov=scan_pdf --cov-report xml:reports/coverage.xml --cov-report term --junitxml=reports/junit.xml
+          poetry run pytest --cov=scan_pdf --cov-report xml:reports/coverage.xml --cov-report term --junitxml=reports/junit.xml
           head -30 reports/coverage.xml
 
       - name: Build
-        run: python setup.py sdist
+        run: poetry build
 
       - uses: sonarsource/sonarqube-scan-action@master
         if: matrix.python-version == '3.8'
