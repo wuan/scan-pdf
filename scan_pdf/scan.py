@@ -25,7 +25,7 @@ class Scanner(object):
 
     def __init__(self, options):
 
-        args = ['scanimage', '-b']
+        args = ['scanimage', '-b', '--format=pnm']
 
         if options.device:
             args += ["-d", options.device]
