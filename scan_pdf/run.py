@@ -10,7 +10,7 @@ import stat
 
 from scan_pdf import Scanner, Converter, Combiner, TempDir
 
-if __name__ == '__main__':
+def run():
     parser = argparse.ArgumentParser(description='Produce PDF from Scanner with document-feeder')
     parser.add_argument('output_file_name', type=str, nargs=1,
                         help='name of the produced output file')

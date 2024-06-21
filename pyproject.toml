@@ -1,10 +1,13 @@
 [tool.poetry]
 name = "scan-pdf"
-version = "0.4.0"
+version = "0.4.1"
 description = "Tools for using scanners with document feeder"
 authors = ["Andreas Würl <andi@tryb.de>"]
 license = "Apache-2.0"
 readme = "README.rst"
+
+[tool.poetry.scripts]
+scan-pdf = 'scan_pdf.console:run'
 
 [tool.poetry.dependencies]
 python = "^3.8"
