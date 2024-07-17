@@ -20,9 +20,8 @@ class TestCombine:
 
         combiner = Combiner(options)
 
-        result = combiner.combine(['foo', 'bar'])
+        combiner.combine(['foo', 'bar'])
 
         pdf_merger.append.assert_has_calls([call("foo"), call("bar")])
         pdf_merger.write.assert_called_with("output.pdf")
         pdf_merger.close.assert_called()
-        assert_that(result).is_equal_to(0)

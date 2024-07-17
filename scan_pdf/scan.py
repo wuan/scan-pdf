@@ -1,8 +1,10 @@
+import argparse
 import glob
 import logging
 import os
 import subprocess
 from functools import cmp_to_key
+from typing import List
 
 logger = logging.getLogger(__name__)
 
@@ -23,7 +25,7 @@ class Scanner:
     }
     page_file_suffix = '.pnm'
 
-    def __init__(self, options):
+    def __init__(self, options: argparse.Namespace):
 
         args = ['scanimage', '-b', '--format=pnm']
 
@@ -59,14 +61,14 @@ class Scanner:
         retval = subprocess.call(args)
         logger.debug("call retured %d", retval)
 
-    def get_page_file_basenames(self):
+    def get_page_file_basenames(self) -> List[str]:
         output_files = glob.glob('out*' + self.page_file_suffix)
         output_files = sorted(output_files, key=cmp_to_key(self.compare_output_names))
 
         return [os.path.splitext(output_file)[0] for output_file in output_files]
 
     @staticmethod
-    def compare_output_names(name1, name2):
+    def compare_output_names(name1: str, name2: str) -> int:
         if len(name1) < len(name2):
             return -1
         elif len(name1) > len(name2):

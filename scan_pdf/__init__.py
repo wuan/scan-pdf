@@ -1,4 +1,4 @@
-from .scan import Scanner
-from .convert import Converter
-from .combine import Combiner
-from .util import TempDir
+from .scan import Scanner as Scanner
+from .convert import Converter as Converter
+from .combine import Combiner as Combiner
+from .util import TempDir as TempDir

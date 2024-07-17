@@ -31,7 +31,7 @@ class TestConverter:
         return options
 
     def test_convert_default(self, subprocess, options):
-        scanner = Scanner(options)
+        Scanner(options)
 
         subprocess.call.assert_called_with(
             ['scanimage', '-b', '--format=pnm', '--mode', 'Gray', '--source', 'Automatic Document Feeder', '--adf-mode',
@@ -44,7 +44,7 @@ class TestConverter:
         options.resolution = 150
         options.paper_format = "A5"
 
-        scanner = Scanner(options)
+        Scanner(options)
 
         subprocess.call.assert_called_with(
             ['scanimage', '-b', '--format=pnm', '-d', 'foo', '--mode', 'Color', '--source', 'Flatbed', '--batch-count',
@@ -57,7 +57,7 @@ class TestConverter:
         options.resolution = 600
         options.threshold = 100
 
-        scanner = Scanner(options)
+        Scanner(options)
 
         subprocess.call.assert_called_with(
             ['scanimage', '-b', '--format=pnm', '--mode', 'Lineart', '--source', 'Automatic Document Feeder',

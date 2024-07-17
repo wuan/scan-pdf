@@ -10,15 +10,30 @@ readme = "README.rst"
 scan-pdf = 'scan_pdf.console:run'
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 pypdf = "^4.2.0"
 
 [tool.poetry.group.dev.dependencies]
-pytest-cov = "^5.0.0"
+pytest = "^8.2.2"
 pytest-mock = "^3.14.0"
+pytest-cov = "^5.0.0"
 mock = "^5.1.0"
 assertpy = "^1.1"
+flake8 = "^7.1.0"
+mypy = "^1.10.1"
+ruff = "^0.5.2"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+disallow_untyped_defs = true
+packages = ["scan_pdf"]

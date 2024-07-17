@@ -10,7 +10,8 @@ import stat
 
 from scan_pdf import Scanner, Converter, Combiner, TempDir
 
-def run():
+
+def run() -> None:
     parser = argparse.ArgumentParser(description='Produce PDF from Scanner with document-feeder')
     parser.add_argument('output_file_name', type=str, nargs=1,
                         help='name of the produced output file')
@@ -40,6 +41,7 @@ def run():
     parser.add_argument('--paper-width', dest='paper_width', default=0, help="override paper width")
 
     options = parser.parse_args()
+    print(type(options))
 
     logging.basicConfig(level=logging.DEBUG if options.debug else logging.INFO)
     logger = logging.getLogger(__name__)
@@ -47,7 +49,7 @@ def run():
     origin_dir = os.getcwd()
 
     with TempDir() as temp_dir:
-        os.chmod(temp_dir, stat.S_IRWXU |stat.S_IRWXG | stat.S_IRWXO)
+        os.chmod(temp_dir, stat.S_IRWXU | stat.S_IRWXG | stat.S_IRWXO)
         os.chdir(temp_dir)
 
         output_file_name = options.output_file_name[0]

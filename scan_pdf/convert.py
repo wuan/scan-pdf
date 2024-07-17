@@ -1,3 +1,4 @@
+import argparse
 import logging
 import os
 
@@ -9,10 +10,10 @@ logger = logging.getLogger(__name__)
 class Converter:
     page_file_suffix = '.pdf'
 
-    def __init__(self, options):
+    def __init__(self, options: argparse.Namespace):
         self.options = options
 
-    def convert(self, source_basename, source_suffix, flip=False):
+    def convert(self, source_basename: str, source_suffix: str, flip: bool = False) -> int:
         logger.info('convert %s', source_basename)
         args = ['convert']
 
