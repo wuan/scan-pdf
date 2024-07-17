@@ -15,7 +15,7 @@ class PaperFormat(object):
         self.height = height
 
 
-class Scanner(object):
+class Scanner:
     paper_formats = {
         'A3': PaperFormat(0, 297, 0, 420),
         'A4': PaperFormat(0, 210, 0, 297),
@@ -50,10 +50,10 @@ class Scanner(object):
 
         paper_format = self.paper_formats.get(options.paper_format, self.paper_formats['A4'])
 
-        args += ['-l', str(options.paper_left if options.paper_left else paper_format.left)]
-        args += ['-x', str(options.paper_width if options.paper_width else paper_format.width)]
-        args += ['-t', str(options.paper_top if options.paper_top else paper_format.top)]
-        args += ['-y', str(options.paper_height if options.paper_height else paper_format.height)]
+        args += ['-l', str(int(options.paper_left if options.paper_left else paper_format.left))]
+        args += ['-x', str(int(options.paper_width if options.paper_width else paper_format.width))]
+        args += ['-t', str(int(options.paper_top if options.paper_top else paper_format.top))]
+        args += ['-y', str(int(options.paper_height if options.paper_height else paper_format.height))]
 
         logger.debug("call %s", " ".join(args))
         retval = subprocess.call(args)
