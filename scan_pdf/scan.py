@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 
 class PaperFormat(object):
-    def __init__(self, left, width, top, height):
+    def __init__(self, left: int, width: int, top: int, height: int):
         self.left = left
         self.width = width
         self.top = top
@@ -19,7 +19,7 @@ class Scanner:
     paper_formats = {
         'A3': PaperFormat(0, 297, 0, 420),
         'A4': PaperFormat(0, 210, 0, 297),
-        'A5': PaperFormat(0, 148.5, 0, 218),
+        'A5': PaperFormat(0, 149, 0, 218),
     }
     page_file_suffix = '.pnm'
 

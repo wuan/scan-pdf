@@ -2,7 +2,7 @@ import tempfile
 import shutil
 
 
-class TempDir(object):
+class TempDir:
     def __init__(self):
         self.temp_dir = None
 

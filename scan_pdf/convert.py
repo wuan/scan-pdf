@@ -6,7 +6,7 @@ import subprocess
 logger = logging.getLogger(__name__)
 
 
-class Converter(object):
+class Converter:
     page_file_suffix = '.pdf'
 
     def __init__(self, options):
