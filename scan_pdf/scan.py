@@ -7,7 +7,7 @@ from functools import cmp_to_key
 logger = logging.getLogger(__name__)
 
 
-class PaperFormat(object):
+class PaperFormat:
     def __init__(self, left: int, width: int, top: int, height: int):
         self.left = left
         self.width = width
