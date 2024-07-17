@@ -4,10 +4,7 @@ from mock import patch
 from mock.mock import call
 
 from scan_pdf import Combiner
-
-
-class Options(object):
-    pass
+from . import Options
 
 
 class TestCombine:

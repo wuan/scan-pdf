@@ -5,7 +5,7 @@ import pypdf
 logger = logging.getLogger(__name__)
 
 
-class Combiner(object):
+class Combiner:
     def __init__(self, options):
         self.options = options
 

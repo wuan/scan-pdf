@@ -3,10 +3,7 @@ from assertpy import assert_that
 from mock import patch
 
 from scan_pdf import Converter
-
-
-class Options(object):
-    pass
+from . import Options
 
 
 class TestConverter:
