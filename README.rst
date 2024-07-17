@@ -4,11 +4,10 @@
 .. image:: https://badge.fury.io/py/scan-pdf.png
     :alt: PyPi-Package
     :target: https://badge.fury.io/py/scan-pdf
-.. image:: https://travis-ci.org/wuan/scan-pdf.svg?branch=master
+.. image:: https://sonar.tryb.de/api/project_badges/measure?project=scan-pdf&metric=alert_status&token=sqb_53c510ab94d29224e4930fe5e9babdfb9cc8e3e6
     :alt: Build Status
-    :target: https://travis-ci.org/wuan/scan-pdf
-.. image:: https://coveralls.io/repos/wuan/scan-pdf/badge.svg?branch=master&service=github
-    :target: https://coveralls.io/github/wuan/scan-pdf?branch=master
+.. image:: https://sonar.tryb.de/api/project_badges/measure?project=scan-pdf&metric=coverage&token=sqb_53c510ab94d29224e4930fe5e9babdfb9cc8e3e6
+    :alt: Coverage
 
 simple script to create pdf files from a scanner with document feeder
 
