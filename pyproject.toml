@@ -7,7 +7,7 @@ license = "Apache-2.0"
 readme = "README.rst"
 
 [tool.poetry.scripts]
-scan-pdf = 'scan_pdf.console:run'
+scan-pdf = 'scan_pdf.cli:run'
 
 [tool.poetry.dependencies]
 python = "^3.9"

@@ -8,7 +8,6 @@ from . import Options, touch
 
 
 class TestConverter:
-
     @pytest.fixture
     def subprocess(self):
         with patch("scan_pdf.scan.subprocess") as subprocess:
@@ -34,8 +33,28 @@ class TestConverter:
         Scanner(options)
 
         subprocess.call.assert_called_with(
-            ['scanimage', '-b', '--format=pnm', '--mode', 'Gray', '--source', 'Automatic Document Feeder', '--adf-mode',
-             'Simplex', '--resolution', '300', '-l', '0', '-x', '210', '-t', '0', '-y', '297'])
+            [
+                "scanimage",
+                "-b",
+                "--format=pnm",
+                "--mode",
+                "Gray",
+                "--source",
+                "Automatic Document Feeder",
+                "--adf-mode",
+                "Simplex",
+                "--resolution",
+                "300",
+                "-l",
+                "0",
+                "-x",
+                "210",
+                "-t",
+                "0",
+                "-y",
+                "297",
+            ]
+        )
 
     def test_convert_flatbed_A5_device(self, subprocess, options):
         options.device = "foo"
@@ -47,9 +66,30 @@ class TestConverter:
         Scanner(options)
 
         subprocess.call.assert_called_with(
-            ['scanimage', '-b', '--format=pnm', '-d', 'foo', '--mode', 'Color', '--source', 'Flatbed', '--batch-count',
-             '1',
-             '--resolution', '150', '-l', '0', '-x', '149', '-t', '0', '-y', '218'])
+            [
+                "scanimage",
+                "-b",
+                "--format=pnm",
+                "-d",
+                "foo",
+                "--mode",
+                "Color",
+                "--source",
+                "Flatbed",
+                "--batch-count",
+                "1",
+                "--resolution",
+                "150",
+                "-l",
+                "0",
+                "-x",
+                "149",
+                "-t",
+                "0",
+                "-y",
+                "218",
+            ]
+        )
 
     def test_convert_duplex_bw(self, subprocess, options):
         options.color_mode = "bw"
@@ -60,9 +100,32 @@ class TestConverter:
         Scanner(options)
 
         subprocess.call.assert_called_with(
-            ['scanimage', '-b', '--format=pnm', '--mode', 'Lineart', '--source', 'Automatic Document Feeder',
-             '--adf-mode', 'Duplex', '--resolution', '600', '--halftoning', 'None', '--threshold', '100', '-l', '0',
-             '-x', '210', '-t', '0', '-y', '297'])
+            [
+                "scanimage",
+                "-b",
+                "--format=pnm",
+                "--mode",
+                "Lineart",
+                "--source",
+                "Automatic Document Feeder",
+                "--adf-mode",
+                "Duplex",
+                "--resolution",
+                "600",
+                "--halftoning",
+                "None",
+                "--threshold",
+                "100",
+                "-l",
+                "0",
+                "-x",
+                "210",
+                "-t",
+                "0",
+                "-y",
+                "297",
+            ]
+        )
 
     def test_base_folder(self, tmp_path, subprocess, options):
         os.chdir(tmp_path)
@@ -78,4 +141,11 @@ class TestConverter:
 
         names = scanner.get_page_file_basenames()
 
-        assert names == ['outpage', 'outpage1', 'outpage2', 'outpage13', 'outpage17', 'outpage127']
+        assert names == [
+            "outpage",
+            "outpage1",
+            "outpage2",
+            "outpage13",
+            "outpage17",
+            "outpage127",
+        ]

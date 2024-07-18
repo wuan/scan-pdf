@@ -8,7 +8,6 @@ from . import Options
 
 
 class TestCombine:
-
     @pytest.fixture(scope="session", autouse=True)
     def pdf_merger(self):
         with patch("pypdf.PdfMerger") as pdf_merger:
@@ -16,11 +15,11 @@ class TestCombine:
 
     def test_combine(self, pdf_merger):
         options = Options()
-        options.output_file_name = ['output.pdf']
+        options.output_file_name = ["output.pdf"]
 
         combiner = Combiner(options)
 
-        combiner.combine(['foo', 'bar'])
+        combiner.combine(["foo", "bar"])
 
         pdf_merger.append.assert_has_calls([call("foo"), call("bar")])
         pdf_merger.write.assert_called_with("output.pdf")

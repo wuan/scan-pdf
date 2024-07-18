@@ -19,50 +19,71 @@ class PaperFormat:
 
 class Scanner:
     paper_formats = {
-        'A3': PaperFormat(0, 297, 0, 420),
-        'A4': PaperFormat(0, 210, 0, 297),
-        'A5': PaperFormat(0, 149, 0, 218),
+        "A3": PaperFormat(0, 297, 0, 420),
+        "A4": PaperFormat(0, 210, 0, 297),
+        "A5": PaperFormat(0, 149, 0, 218),
     }
-    page_file_suffix = '.pnm'
+    page_file_suffix = ".pnm"
 
     def __init__(self, options: argparse.Namespace):
-
-        args = ['scanimage', '-b', '--format=pnm']
+        args = ["scanimage", "-b", "--format=pnm"]
 
         if options.device:
             args += ["-d", options.device]
 
-        color_mode = 'Gray'
-        if options.color_mode == 'bw':
-            color_mode = 'Lineart'
-        elif options.color_mode == 'color':
-            color_mode = 'Color'
-        args += ['--mode', color_mode]
+        color_mode = "Gray"
+        if options.color_mode == "bw":
+            color_mode = "Lineart"
+        elif options.color_mode == "color":
+            color_mode = "Color"
+        args += ["--mode", color_mode]
 
         if options.flatbed:
-            args += ['--source', 'Flatbed', '--batch-count', '1']
+            args += ["--source", "Flatbed", "--batch-count", "1"]
         else:
-            args += ['--source', 'Automatic Document Feeder']
-            args += ['--adf-mode', 'Duplex' if options.duplex else 'Simplex']
+            args += ["--source", "Automatic Document Feeder"]
+            args += ["--adf-mode", "Duplex" if options.duplex else "Simplex"]
 
-        args += ['--resolution', str(options.resolution)]
+        args += ["--resolution", str(options.resolution)]
 
         if options.threshold:
-            args += ['--halftoning', 'None', '--threshold', str(options.threshold)]
+            args += ["--halftoning", "None", "--threshold", str(options.threshold)]
 
-        paper_format = self.paper_formats.get(options.paper_format, self.paper_formats['A4'])
+        paper_format = self.paper_formats.get(
+            options.paper_format, self.paper_formats["A4"]
+        )
 
-        args += ['-l', str(int(options.paper_left if options.paper_left else paper_format.left))]
-        args += ['-x', str(int(options.paper_width if options.paper_width else paper_format.width))]
-        args += ['-t', str(int(options.paper_top if options.paper_top else paper_format.top))]
-        args += ['-y', str(int(options.paper_height if options.paper_height else paper_format.height))]
+        args += [
+            "-l",
+            str(int(options.paper_left if options.paper_left else paper_format.left)),
+        ]
+        args += [
+            "-x",
+            str(
+                int(options.paper_width if options.paper_width else paper_format.width)
+            ),
+        ]
+        args += [
+            "-t",
+            str(int(options.paper_top if options.paper_top else paper_format.top)),
+        ]
+        args += [
+            "-y",
+            str(
+                int(
+                    options.paper_height
+                    if options.paper_height
+                    else paper_format.height
+                )
+            ),
+        ]
 
         logger.debug("call %s", " ".join(args))
         retval = subprocess.call(args)
         logger.debug("call retured %d", retval)
 
     def get_page_file_basenames(self) -> List[str]:
-        output_files = glob.glob('out*' + self.page_file_suffix)
+        output_files = glob.glob("out*" + self.page_file_suffix)
         output_files = sorted(output_files, key=cmp_to_key(self.compare_output_names))
 
         return [os.path.splitext(output_file)[0] for output_file in output_files]

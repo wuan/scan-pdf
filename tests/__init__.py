@@ -1,10 +1,11 @@
 import os
+from argparse import Namespace
 
 
-class Options(object):
+class Options(Namespace):
     pass
 
 
 def touch(file_name: str):
-    with open(file_name, 'a'):
+    with open(file_name, "a"):
         os.utime(file_name, None)
