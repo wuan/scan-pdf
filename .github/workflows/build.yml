@@ -2,7 +2,7 @@ name: Test and Build
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
 
 jobs:
@@ -13,29 +13,30 @@ jobs:
       # max-parallel: 8
       fail-fast: false
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12"]
-        poetry-version: ["1.2.2", "1.7.1"]
-        os: [ubuntu-22.04, macos-latest, windows-latest]
+        python-version: [ "3.9", "3.10", "3.11", "3.12" ]
+        poetry-version: [ "1.2.2", "1.7.1" ]
+        os: [ ubuntu-22.04, macos-latest, windows-latest ]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - uses: actions/setup-python@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+
       - name: Run image
-        uses: abatilo/actions-poetry@v2
+        uses: abatilo/actions-poetry@v3
         with:
           poetry-version: ${{ matrix.poetry-version }}
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-version }}
+
       - name: Setup environment
         run: poetry install
+
       - name: Show environment
         run: poetry run pip list
+
       - name: Tests
         run: |
           poetry run pytest --cov=scan_pdf --cov-report xml:reports/coverage.xml --cov-report term --junitxml=reports/junit.xml
