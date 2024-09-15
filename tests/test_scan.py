@@ -68,16 +68,13 @@ class TestConverter:
         subprocess.call.assert_called_with(
             [
                 "scanimage",
-                "-b",
-                "--format=pnm",
+                "--output-file=out.pnm",
                 "-d",
                 "foo",
                 "--mode",
                 "Color",
                 "--source",
                 "Flatbed",
-                "--batch-count",
-                "1",
                 "--resolution",
                 "150",
                 "-l",

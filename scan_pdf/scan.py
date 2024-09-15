@@ -28,7 +28,12 @@ class Scanner:
     page_file_suffix = ".pnm"
 
     def __init__(self, options: argparse.Namespace):
-        args = ["scanimage", "-b", "--format=pnm"]
+        args = ["scanimage"]
+
+        if options.flatbed:
+            args += ["--output-file=out.pnm"]
+        else:
+            args += ["-b", "--format=pnm"]
 
         if options.device:
             args += ["-d", options.device]
@@ -41,7 +46,7 @@ class Scanner:
         args += ["--mode", color_mode]
 
         if options.flatbed:
-            args += ["--source", "Flatbed", "--batch-count", "1"]
+            args += ["--source", "Flatbed"]
         else:
             args += ["--source", "Automatic Document Feeder"]
             args += ["--adf-mode", "Duplex" if options.duplex else "Simplex"]
