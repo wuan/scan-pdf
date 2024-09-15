@@ -146,3 +146,10 @@ class TestConverter:
             "outpage17",
             "outpage127",
         ]
+
+    def test_sort_filenames(self, tmp_path, subprocess, options):
+        assert Scanner.compare_output_names("name1", "name1") == 0
+        assert Scanner.compare_output_names("name1", "name2") == -1
+        assert Scanner.compare_output_names("name2", "name1") == 1
+        assert Scanner.compare_output_names("name1", "name12") == -1
+        assert Scanner.compare_output_names("name12", "name1") == 1
