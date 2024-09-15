@@ -21,7 +21,9 @@ class Scanner:
     paper_formats = {
         "A3": PaperFormat(0, 297, 0, 420),
         "A4": PaperFormat(0, 210, 0, 297),
-        "A5": PaperFormat(0, 149, 0, 218),
+        "A5": PaperFormat(0, 148, 0, 210),
+        "A6": PaperFormat(0, 105, 0, 148),
+        "A7": PaperFormat(0, 74, 0, 105),
     }
     page_file_suffix = ".pnm"
 
