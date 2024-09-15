@@ -48,7 +48,7 @@ supported options
       --threshold THRESHOLD
                             disabled by default
       --color-depth COLOR_DEPTH
-      --paper-format {A4,A5}
+      --paper-format {A3,A4,A5,A6,A7}
                             default: A4
       --paper-left PAPER_LEFT
                             override left offset
