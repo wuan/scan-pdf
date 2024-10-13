@@ -4,10 +4,12 @@
 .. image:: https://badge.fury.io/py/scan-pdf.png
     :alt: PyPi-Package
     :target: https://badge.fury.io/py/scan-pdf
-.. image:: https://sonar.tryb.de/api/project_badges/measure?project=scan-pdf&metric=alert_status&token=sqb_53c510ab94d29224e4930fe5e9babdfb9cc8e3e6
-    :alt: Build Status
-.. image:: https://sonar.tryb.de/api/project_badges/measure?project=scan-pdf&metric=coverage&token=sqb_53c510ab94d29224e4930fe5e9babdfb9cc8e3e6
+.. image:: https://sonarcloud.io/api/project_badges/measure?project=wuan_scan-pdf&metric=duplicated_lines_density
+    :alt: Duplicated lines
+    :target: https://sonarcloud.io/summary/new_code?id=wuan_scan-pdf
+.. image:: https://sonarcloud.io/api/project_badges/measure?project=wuan_scan-pdf&metric=coverage
     :alt: Coverage
+    :target: https://sonarcloud.io/summary/new_code?id=wuan_scan-pdf
 
 simple script to create pdf files from a scanner with document feeder
 
