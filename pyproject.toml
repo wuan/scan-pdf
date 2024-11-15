@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "scan-pdf"
-version = "0.4.7"
+version = "0.4.8"
 description = "Tools for using scanners with document feeder"
 authors = ["Andreas Würl <andi@tryb.de>"]
 license = "Apache-2.0"
@@ -11,7 +11,7 @@ scan-pdf = 'scan_pdf.cli:run'
 
 [tool.poetry.dependencies]
 python = "^3.9"
-pypdf = "^4.2.0"
+pypdf = "^5.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.2.2"
