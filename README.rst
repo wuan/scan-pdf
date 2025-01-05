@@ -10,6 +10,9 @@
 .. image:: https://sonarcloud.io/api/project_badges/measure?project=wuan_scan-pdf&metric=coverage
     :alt: Coverage
     :target: https://sonarcloud.io/summary/new_code?id=wuan_scan-pdf
+.. image:: https://api.scorecard.dev/projects/github.com/wuan/scan-pdf/badge
+    :alt: OpenSSF Scorecard
+    :target: https://scorecard.dev/viewer/?uri=github.com/wuan/scan-pdf
 
 simple script to create pdf files from a scanner with document feeder
 
