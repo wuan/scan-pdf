@@ -11,7 +11,7 @@ scan-pdf = 'scan_pdf.cli:run'
 
 [tool.poetry.dependencies]
 python = "^3.9"
-pypdf = "^5.1"
+pypdf = ">=5.1,<7.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.2.2"
