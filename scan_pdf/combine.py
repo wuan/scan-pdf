@@ -15,7 +15,7 @@ class Combiner:
         output_file_name = self.options.output_file_name[0]
         logger.info("combine %d pages into %s", len(page_file_names), output_file_name)
 
-        merger = pypdf.PdfMerger()
+        merger = pypdf.PdfWriter()
 
         for pdf in page_file_names:
             merger.append(pdf)
