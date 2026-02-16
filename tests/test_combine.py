@@ -21,5 +21,5 @@ class TestCombine:
         combiner.combine(["foo", "bar"])
 
         pdf_writer.append.assert_has_calls([call("foo"), call("bar")])
-        pdf_writer.write.assert_called_once()
+        pdf_writer.write.assert_called_with("output.pdf")
         pdf_writer.close.assert_called()
