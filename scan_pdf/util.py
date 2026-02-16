@@ -1,6 +1,5 @@
 import tempfile
 import shutil
-from os import PathLike
 from types import TracebackType
 from typing import Optional
 

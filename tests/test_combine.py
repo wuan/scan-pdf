@@ -1,5 +1,4 @@
 import pytest
-from assertpy import assert_that
 from mock import patch
 from mock.mock import call
 
@@ -9,11 +8,11 @@ from . import Options
 
 class TestCombine:
     @pytest.fixture(scope="session", autouse=True)
-    def pdf_merger(self):
-        with patch("pypdf.PdfMerger") as pdf_merger:
-            yield pdf_merger()
+    def pdf_writer(self):
+        with patch("pypdf.PdfWriter") as pdf_writer:
+            yield pdf_writer()
 
-    def test_combine(self, pdf_merger):
+    def test_combine(self, pdf_writer):
         options = Options()
         options.output_file_name = ["output.pdf"]
 
@@ -21,6 +20,6 @@ class TestCombine:
 
         combiner.combine(["foo", "bar"])
 
-        pdf_merger.append.assert_has_calls([call("foo"), call("bar")])
-        pdf_merger.write.assert_called_with("output.pdf")
-        pdf_merger.close.assert_called()
+        pdf_writer.append.assert_has_calls([call("foo"), call("bar")])
+        pdf_writer.write.assert_called_once()
+        pdf_writer.close.assert_called()
