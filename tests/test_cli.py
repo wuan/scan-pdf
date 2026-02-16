@@ -1,5 +1,3 @@
-import unittest
-
 import pytest
 from mock import patch, call, PropertyMock
 

@@ -1,6 +1,5 @@
 import pytest
-from assertpy import assert_that
-from mock import patch
+from mock import patch, mock_open
 from mock.mock import call
 
 from scan_pdf import Combiner
@@ -19,8 +18,10 @@ class TestCombine:
 
         combiner = Combiner(options)
 
-        combiner.combine(["foo", "bar"])
+        with patch("scan_pdf.combine.open", mock_open()) as mocked_open:
+            combiner.combine(["foo", "bar"])
 
-        pdf_writer.append.assert_has_calls([call("foo"), call("bar")])
-        pdf_writer.write.assert_called_with("output.pdf")
-        pdf_writer.close.assert_called()
+            mocked_open.assert_called_with("output.pdf", "wb")
+            pdf_writer.append.assert_has_calls([call("foo"), call("bar")])
+            pdf_writer.write.assert_called_with(mocked_open())
+            pdf_writer.close.assert_called()

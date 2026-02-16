@@ -20,5 +20,6 @@ class Combiner:
         for pdf in page_file_names:
             merger.append(pdf)
 
-        merger.write(output_file_name)
+        with open(output_file_name, "wb") as output_file:
+            merger.write(output_file)
         merger.close()
