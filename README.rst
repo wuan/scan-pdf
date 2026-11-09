@@ -63,3 +63,16 @@ supported options
                             override paper height
       --paper-width PAPER_WIDTH
                             override paper width
+
+Mutation testing
+================
+
+The project uses pytest-gremlins for mutation testing.
+Run it locally with::
+
+    uv run pytest --gremlins
+
+This executes the test suite against injected mutants and prints a console
+report of zapped and surviving gremlins. A JSON report is written to
+``coverage/gremlins/gremlins.json`` and uploaded as a CI artifact on every
+pull request. Surviving gremlins do not fail the build.

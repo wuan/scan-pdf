@@ -58,3 +58,40 @@ jobs:
 
       - name: Build
         run: uv build
+
+  mutation:
+    name: Mutation testing
+    permissions:
+      contents: read  # for actions/checkout to fetch code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@1d88384fd173af6ecb012dfd0264a306b711241a # v2.22.4
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.13"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          enable-cache: true
+
+      - name: Setup environment
+        run: uv sync --locked
+
+      - name: Mutation tests
+        run: uv run pytest --gremlins -q
+
+      - name: Upload mutation report
+        uses: actions/upload-artifact@5d5d22a47a74b4854683e0353b6d5a06e2ca4a54 # v4.6.2
+        with:
+          name: mutation-report
+          path: coverage/gremlins/gremlins.json

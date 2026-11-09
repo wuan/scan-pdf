@@ -259,6 +259,19 @@ wheels = [
 ]
 
 [[package]]
+name = "pytest-gremlins"
+version = "1.13.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "coverage" },
+    { name = "pytest" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/87/4d/eb428bf915baa8e4b228b96a688280f6e4a1531512e2f6d4b7eb7bdb9473/pytest_gremlins-1.13.2.tar.gz", hash = "sha256:154378b2df6d28b037dd21664f32a2935d0fe2ad7b77999b711cc8306e15dde0", size = 4399623, upload-time = "2026-10-30T16:15:15.545Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/f9/3e/15c063f6ea3903cc447b132604a3bcbccc83c79197776dd00d3a0de37b01/pytest_gremlins-1.13.2-py3-none-any.whl", hash = "sha256:9cafbe19f41d07c753de9f47534738d265f85fcde186c9200835707dad2c0d46", size = 200438, upload-time = "2026-10-30T16:15:14.019Z" },
+]
+
+[[package]]
 name = "pytest-mock"
 version = "3.17.0"
 source = { registry = "https://pypi.org/simple" }
@@ -310,6 +323,7 @@ dev = [
     { name = "mock" },
     { name = "pytest" },
     { name = "pytest-cov" },
+    { name = "pytest-gremlins" },
     { name = "pytest-mock" },
     { name = "ruff" },
 ]
@@ -324,6 +338,7 @@ dev = [
     { name = "mock", specifier = ">=5.1,<6" },
     { name = "pytest", specifier = ">=9.1,<10" },
     { name = "pytest-cov", specifier = ">=7.1,<8" },
+    { name = "pytest-gremlins", specifier = ">=1.13.2" },
     { name = "pytest-mock", specifier = ">=3.14,<4" },
     { name = "ruff", specifier = ">=0.16,<0.18" },
 ]
