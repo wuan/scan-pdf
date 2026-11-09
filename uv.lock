@@ -8,9 +8,12 @@ resolution-markers = [
 
 [[package]]
 name = "assertpy"
-version = "1.1"
+version = "2.36.0"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/4f/39/720b5d4463612a40a166d00999cbb715fce3edaf08a9a7588ba5985699ec/assertpy-1.1.tar.gz", hash = "sha256:acc64329934ad71a3221de185517a43af33e373bb44dc05b5a9b174394ef4833", size = 25421, upload-time = "2020-07-19T14:39:02.462Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/a7/de/0bc8194e49b5f545a59f4e61a0f64d56a6050c3e0afa6c875322f6b81877/assertpy-2.36.0.tar.gz", hash = "sha256:94856ca5ec7131e26584115bea06f85c10aacaa5f4c525254f32d6986edf9e0a", size = 1674600, upload-time = "2026-11-05T12:51:43.553Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/10/52/37db8d747b487838f8423f1b6217132799a7e3f4efe425262992419bc86e/assertpy-2.36.0-py3-none-any.whl", hash = "sha256:073ad96eb5b44e9bce2e021c6ab4f17bf1a602a0601d6b25c362b6f41b371149", size = 488701, upload-time = "2026-11-05T12:51:41.499Z" },
+]
 
 [[package]]
 name = "ast-serialize"
@@ -550,7 +553,7 @@ requires-dist = [{ name = "pypdf", specifier = ">=5.1,<8.0" }]
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "assertpy", specifier = ">=1.1,<2" },
+    { name = "assertpy", specifier = ">=1.1,<3" },
     { name = "mock", specifier = ">=5.1,<6" },
     { name = "mypy", specifier = ">=2.3,<3" },
     { name = "pytest", specifier = ">=9.1,<10" },
