@@ -5,6 +5,8 @@ __pycache__
 /dist
 /.venv/
 *.egg-info
+/coverage/
+/.gremlins_cache/
 
 .vibe
 .opencode
