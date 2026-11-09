@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-from __future__ import print_function
 
 import argparse
 import logging
@@ -8,7 +7,7 @@ import os
 import shutil
 import stat
 
-from scan_pdf import Scanner, Converter, Combiner, TempDir
+from scan_pdf import Combiner, Converter, Scanner, TempDir
 
 
 def parse_args() -> argparse.Namespace:

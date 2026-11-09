@@ -1,14 +1,40 @@
+default_language_version:
+  python: python3
+
+ci:
+  autoupdate_schedule: weekly
+
 repos:
 - repo: https://github.com/gitleaks/gitleaks
-  rev: v8.16.3
+  rev: v8.30.1
   hooks:
   - id: gitleaks
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.4.0
+  rev: v6.0.0
   hooks:
   - id: end-of-file-fixer
   - id: trailing-whitespace
-- repo: https://github.com/pylint-dev/pylint
-  rev: v2.17.2
+  - id: check-yaml
+  - id: check-merge-conflict
+  - id: check-added-large-files
+  - id: mixed-line-ending
+  - id: debug-statements
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.17.4
   hooks:
-  - id: pylint
+  - id: ruff
+    args: [--fix]
+  - id: ruff-format
+- repo: https://github.com/asottile/pyupgrade
+  rev: v3.22.0
+  hooks:
+  - id: pyupgrade
+    args: [--py310-plus]
+- repo: local
+  hooks:
+  - id: mypy
+    name: mypy
+    entry: poetry run mypy
+    language: system
+    types: [python]
+    pass_filenames: false

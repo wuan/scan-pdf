@@ -1,8 +1,10 @@
+from unittest.mock import patch
+
 import pytest
 from assertpy import assert_that
-from mock import patch
 
 from scan_pdf import Converter
+
 from . import Options
 
 

@@ -1,12 +1,11 @@
-import tempfile
 import shutil
+import tempfile
 from types import TracebackType
-from typing import Optional
 
 
 class TempDir:
     def __init__(self) -> None:
-        self.temp_dir: Optional[str] = None
+        self.temp_dir: str | None = None
 
     def __enter__(self) -> str:
         self.temp_dir = tempfile.mkdtemp(prefix="scanpdf_")

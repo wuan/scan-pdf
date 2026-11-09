@@ -4,7 +4,6 @@ import logging
 import os
 import subprocess
 from functools import cmp_to_key
-from typing import List
 
 logger = logging.getLogger(__name__)
 
@@ -89,7 +88,7 @@ class Scanner:
         retval = subprocess.call(args)
         logger.debug("call retured %d", retval)
 
-    def get_page_file_basenames(self) -> List[str]:
+    def get_page_file_basenames(self) -> list[str]:
         output_files = glob.glob("out*" + self.page_file_suffix)
         output_files = sorted(output_files, key=cmp_to_key(self.compare_output_names))
 

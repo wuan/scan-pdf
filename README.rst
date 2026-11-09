@@ -63,4 +63,3 @@ supported options
                             override paper height
       --paper-width PAPER_WIDTH
                             override paper width
-
