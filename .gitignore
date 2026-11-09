@@ -3,6 +3,7 @@ __pycache__
 /.idea
 /*.iml
 /dist
+/.venv/
 *.egg-info
 
 .vibe

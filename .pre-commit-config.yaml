@@ -29,12 +29,12 @@ repos:
   rev: v3.22.0
   hooks:
   - id: pyupgrade
-    args: [--py310-plus]
+    args: [--py311-plus]
 - repo: local
   hooks:
   - id: mypy
     name: mypy
-    entry: poetry run mypy
+    entry: uv run mypy
     language: system
     types: [python]
     pass_filenames: false
