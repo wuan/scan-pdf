@@ -7,10 +7,10 @@ logger = logging.getLogger(__name__)
 
 
 class Converter:
-    page_file_suffix = ".pdf"
+    page_file_suffix: str = ".pdf"
 
     def __init__(self, options: argparse.Namespace):
-        self.options = options
+        self.options: argparse.Namespace = options
 
     def convert(
         self, source_basename: str, source_suffix: str, flip: bool = False

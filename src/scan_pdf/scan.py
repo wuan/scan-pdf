@@ -10,21 +10,21 @@ logger = logging.getLogger(__name__)
 
 class PaperFormat:
     def __init__(self, left: int, width: int, top: int, height: int):
-        self.left = left
-        self.width = width
-        self.top = top
-        self.height = height
+        self.left: int = left
+        self.width: int = width
+        self.top: int = top
+        self.height: int = height
 
 
 class Scanner:
-    paper_formats = {
+    paper_formats: dict[str, PaperFormat] = {
         "A3": PaperFormat(0, 297, 0, 420),
         "A4": PaperFormat(0, 210, 0, 297),
         "A5": PaperFormat(0, 148, 0, 210),
         "A6": PaperFormat(0, 105, 0, 148),
         "A7": PaperFormat(0, 74, 0, 105),
     }
-    page_file_suffix = ".pnm"
+    page_file_suffix: str = ".pnm"
 
     def __init__(self, options: argparse.Namespace):
         args = ["scanimage"]

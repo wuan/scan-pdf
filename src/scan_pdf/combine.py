@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 class Combiner:
     def __init__(self, options: argparse.Namespace):
-        self.options = options
+        self.options: argparse.Namespace = options
 
     def combine(self, page_file_names: list[str]) -> None:
         output_file_name = self.options.output_file_name[0]
@@ -20,5 +20,5 @@ class Combiner:
             merger.append(pdf)
 
         with open(output_file_name, "wb") as output_file:
-            merger.write(output_file)
+            _ = merger.write(output_file)
         merger.close()

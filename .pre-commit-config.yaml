@@ -32,9 +32,9 @@ repos:
     args: [--py311-plus]
 - repo: local
   hooks:
-  - id: mypy
-    name: mypy
-    entry: uv run mypy
+  - id: basedpyright
+    name: basedpyright
+    entry: uv run basedpyright
     language: system
     types: [python]
     pass_filenames: false
