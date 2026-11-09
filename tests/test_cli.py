@@ -1,5 +1,6 @@
+from unittest.mock import PropertyMock, call, patch
+
 import pytest
-from mock import patch, call, PropertyMock
 
 from scan_pdf.cli import run
 from tests import Options

@@ -1,8 +1,9 @@
+from unittest.mock import call, mock_open, patch
+
 import pytest
-from mock import patch, mock_open
-from mock.mock import call
 
 from scan_pdf import Combiner
+
 from . import Options
 
 

@@ -1,9 +1,10 @@
 import os
+from unittest.mock import patch
 
 import pytest
-from mock import patch
 
 from scan_pdf import Scanner
+
 from . import Options, touch
 
 
