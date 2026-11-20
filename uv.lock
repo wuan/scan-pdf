@@ -4,11 +4,11 @@ requires-python = ">=3.11"
 
 [[package]]
 name = "assertpy"
-version = "2.36.0"
+version = "2.36.1"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/a7/de/0bc8194e49b5f545a59f4e61a0f64d56a6050c3e0afa6c875322f6b81877/assertpy-2.36.0.tar.gz", hash = "sha256:94856ca5ec7131e26584115bea06f85c10aacaa5f4c525254f32d6986edf9e0a", size = 1674600, upload-time = "2026-11-05T12:51:43.553Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/4a/f0/092a533dfa0f99df78f2035555b40a8e1461064afe5d7e5fc8cd19a5760a/assertpy-2.36.1.tar.gz", hash = "sha256:43f384b02738c154e36cc16997373e33e27576dce4656e8bc8c13cba7a15761f", size = 1689614, upload-time = "2026-11-16T12:38:11.792Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/10/52/37db8d747b487838f8423f1b6217132799a7e3f4efe425262992419bc86e/assertpy-2.36.0-py3-none-any.whl", hash = "sha256:073ad96eb5b44e9bce2e021c6ab4f17bf1a602a0601d6b25c362b6f41b371149", size = 488701, upload-time = "2026-11-05T12:51:41.499Z" },
+    { url = "https://files.pythonhosted.org/packages/aa/72/a73e2897558f6ef718af892caecfa939d0f3cd54494efcbafe530cdb1c75/assertpy-2.36.1-py3-none-any.whl", hash = "sha256:7cb54df019bdf27ffc2128eb66fa7d1f3f7de1d3674f6566a9072aeffb65cac3", size = 488696, upload-time = "2026-11-16T12:38:09.987Z" },
 ]
 
 [[package]]
