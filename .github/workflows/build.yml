@@ -89,10 +89,15 @@ jobs:
         run: uv sync --locked
 
       - name: Mutation tests
-        run: uv run pytest --gremlins -q
+        run: uv run mutmut run
+
+      - name: Mutation results
+        run: |
+          uv run mutmut results
+          uv run mutmut export-cicd-stats
 
       - name: Upload mutation report
         uses: actions/upload-artifact@5d5d22a47a74b4854683e0353b6d5a06e2ca4a54 # v4.6.2
         with:
           name: mutation-report
-          path: coverage/gremlins/gremlins.json
+          path: mutants/mutmut-cicd-stats.json

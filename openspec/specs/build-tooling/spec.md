@@ -28,11 +28,11 @@ The project SHALL require Python >= 3.11 via `requires-python = ">=3.11"`, and a
 - **THEN** it contains 3.11, 3.12, and 3.13 but not 3.10
 
 ### Requirement: Dev dependencies live in a default dependency group
-The project SHALL declare dev dependencies (pytest, pytest-mock, pytest-cov, pytest-gremlins, mock, assertpy, basedpyright, ruff) in the PEP 735 `[dependency-groups]` table under `dev`, and uv SHALL install that group by default (`[tool.uv] default-groups = ["dev"]`).
+The project SHALL declare dev dependencies (pytest, pytest-mock, pytest-cov, mutmut, mock, assertpy, basedpyright, ruff) in the PEP 735 `[dependency-groups]` table under `dev`, and uv SHALL install that group by default (`[tool.uv] default-groups = ["dev"]`).
 
 #### Scenario: Fresh sync includes dev tools
 - **WHEN** `uv sync --locked` runs in a clean checkout
-- **THEN** pytest, pytest-gremlins, basedpyright, and ruff are all importable via `uv run` without extra flags
+- **THEN** pytest, mutmut, basedpyright, and ruff are all importable via `uv run` without extra flags
 
 ### Requirement: Package source lives in src layout
 The project SHALL place the package at `src/scan_pdf/`, moved without editing file contents, keeping the module name `scan_pdf` unchanged.
@@ -107,30 +107,30 @@ The pre-commit basedpyright hook SHALL use `entry: uv run basedpyright` (still `
 - **WHEN** Dependabot evaluates the repository
 - **THEN** it checks `pyproject.toml`/`uv.lock` under the `uv` ecosystem and no longer watches a Poetry manifest
 
-### Requirement: Mutation testing is configured via pytest-gremlins
-The project SHALL configure pytest-gremlins under `[tool.pytest-gremlins]` in `pyproject.toml` with `paths = ["src/scan_pdf"]`, parallel workers, incremental caching, and console plus JSON reports, and mutation testing SHALL run as a separate pytest invocation (`uv run pytest --gremlins`) that does not combine `--gremlins` with `--cov` or pytest-xdist flags.
+### Requirement: Mutation testing is configured via mutmut
+The project SHALL configure mutmut under `[tool.mutmut]` in `pyproject.toml` with `source_paths = ["src/scan_pdf/"]` and `pytest_add_cli_args_test_selection = ["tests/"]`, and mutation testing SHALL run as a separate invocation (`uv run mutmut run`) outside the regular pytest run. The generated `mutants/` working directory SHALL be gitignored.
 
 #### Scenario: Local mutation run reports survivors
-- **WHEN** `uv run pytest --gremlins` runs in the project root
-- **THEN** the test suite executes against each mutant and a console report lists zapped, surviving, timeout, and error gremlins
+- **WHEN** `uv run mutmut run` runs in the project root
+- **THEN** the test suite executes against each mutant, the progress summary shows killed, surviving, timeout, and suspicious counts, and `uv run mutmut results` lists the surviving mutants
 
 #### Scenario: Mutation targets are explicit
-- **WHEN** pytest-gremlins resolves which files to mutate
-- **THEN** it mutates only files under `src/scan_pdf`, because `paths` is set explicitly rather than relying on auto-discovery (the project builds with the uv_build backend, not setuptools)
+- **WHEN** mutmut resolves which files to mutate
+- **THEN** it mutates only files under `src/scan_pdf`, because `source_paths` is set explicitly rather than relying on auto-discovery
 
 #### Scenario: JSON report is written
-- **WHEN** the mutation run finishes with `report = ["console", "json"]` configured
-- **THEN** a JSON mutation report file is produced alongside the console output
+- **WHEN** `uv run mutmut export-cicd-stats` runs after a mutation run
+- **THEN** a JSON summary is written to `mutants/mutmut-cicd-stats.json`
 
 ### Requirement: CI runs mutation testing as a report-only job
-The build workflow SHALL include a dedicated mutation job on ubuntu-latest with a single Python version that runs `uv sync --locked`, then `uv run pytest --gremlins`, and uploads the JSON mutation report as a workflow artifact; the job SHALL NOT fail the build when gremlins survive.
+The build workflow SHALL include a dedicated mutation job on ubuntu-latest with a single Python version that runs `uv sync --locked`, then `uv run mutmut run` followed by `uv run mutmut results` and `uv run mutmut export-cicd-stats`, and uploads the JSON mutation summary as a workflow artifact; the job SHALL NOT fail the build when mutants survive.
 
 #### Scenario: Mutation job runs on pull requests
 - **WHEN** a pull request targets main
 - **THEN** the mutation job executes on ubuntu-latest with one Python version, in addition to the OS/Python matrix jobs
 
-#### Scenario: Surviving gremlins do not fail CI
-- **WHEN** the mutation run reports surviving gremlins
+#### Scenario: Surviving mutants do not fail CI
+- **WHEN** the mutation run reports surviving mutants
 - **THEN** the job exits zero and the survivor list remains visible in the log and the uploaded report
 
 #### Scenario: Mutation job does not duplicate the matrix
@@ -138,7 +138,7 @@ The build workflow SHALL include a dedicated mutation job on ubuntu-latest with 
 - **THEN** the mutation job is a single non-matrix job, not part of the OS/Python matrix
 
 ### Requirement: Mutation testing stays out of pre-commit
-The pre-commit configuration SHALL NOT include a pytest-gremlins hook, so the local hook loop stays fast.
+The pre-commit configuration SHALL NOT include a mutmut hook, so the local hook loop stays fast.
 
 #### Scenario: Pre-commit hook set is unchanged
 - **WHEN** `pre-commit run --all-files` executes

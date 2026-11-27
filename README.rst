@@ -67,12 +67,17 @@ supported options
 Mutation testing
 ================
 
-The project uses pytest-gremlins for mutation testing.
+The project uses mutmut for mutation testing.
 Run it locally with::
 
-    uv run pytest --gremlins
+    uv run mutmut run
 
-This executes the test suite against injected mutants and prints a console
-report of zapped and surviving gremlins. A JSON report is written to
-``coverage/gremlins/gremlins.json`` and uploaded as a CI artifact on every
-pull request. Surviving gremlins do not fail the build.
+This executes the test suite against injected mutants and prints a progress
+summary of killed and surviving mutants. List survivors with
+``uv run mutmut results`` and inspect one with ``uv run mutmut show <name>``
+(or browse them interactively with ``uv run mutmut browse``). mutmut needs
+``fork``, so on Windows run it inside WSL.
+
+In CI the summary from ``uv run mutmut export-cicd-stats``
+(``mutants/mutmut-cicd-stats.json``) is uploaded as an artifact on every
+pull request. Surviving mutants do not fail the build.
