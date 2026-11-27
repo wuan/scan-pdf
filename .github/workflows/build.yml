@@ -89,14 +89,10 @@ jobs:
         run: uv sync --locked
 
       - name: Mutation tests
-        run: uv run mutmut run
-
-      - name: Mutation results
-        run: |
-          uv run mutmut results
-          uv run mutmut export-cicd-stats
+        run: uv run python scripts/mutation_check.py
 
       - name: Upload mutation report
+        if: always()
         uses: actions/upload-artifact@5d5d22a47a74b4854683e0353b6d5a06e2ca4a54 # v4.6.2
         with:
           name: mutation-report

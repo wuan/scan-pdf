@@ -67,7 +67,8 @@ supported options
 Mutation testing
 ================
 
-The project uses mutmut for mutation testing.
+The project uses mutmut for mutation testing. For terminology, benefits and
+risks see `docs/mutation-testing.md <docs/mutation-testing.md>`_.
 Run it locally with::
 
     uv run mutmut run
@@ -78,6 +79,11 @@ summary of killed and surviving mutants. List survivors with
 (or browse them interactively with ``uv run mutmut browse``). mutmut needs
 ``fork``, so on Windows run it inside WSL.
 
-In CI the summary from ``uv run mutmut export-cicd-stats``
-(``mutants/mutmut-cicd-stats.json``) is uploaded as an artifact on every
-pull request. Surviving mutants do not fail the build.
+The baseline is zero surviving mutants, and it is enforced.
+``scripts/mutation_check.py`` clears the ``mutants/`` cache, runs mutmut and
+fails if any mutant survives or has no covering test. It runs:
+
+* as the ``mutmut`` pre-commit hook whenever Python files are committed (a
+  full run takes a few seconds; bypass it once with ``SKIP=mutmut git commit``)
+* in the ``Mutation testing`` job of the Build workflow, which also uploads
+  ``mutants/mutmut-cicd-stats.json`` as an artifact
