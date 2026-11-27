@@ -1,3 +1,4 @@
+import logging
 import os
 from unittest.mock import patch
 
@@ -124,6 +125,37 @@ class TestConverter:
                 "297",
             ]
         )
+
+    def test_logging(self, subprocess, options, caplog):
+        subprocess.call.return_value = 0
+        caplog.set_level(logging.DEBUG, logger="scan_pdf.scan")
+
+        Scanner(options)
+
+        command = " ".join(subprocess.call.call_args[0][0])
+        assert caplog.record_tuples == [
+            ("scan_pdf.scan", logging.DEBUG, f"call {command}"),
+            ("scan_pdf.scan", logging.DEBUG, "call returned 0"),
+        ]
+
+    def test_unknown_paper_format_falls_back_to_a4(self, subprocess, options):
+        options.paper_format = "Letter"
+
+        Scanner(options)
+
+        args = subprocess.call.call_args[0][0]
+        assert args[-8:] == ["-l", "0", "-x", "210", "-t", "0", "-y", "297"]
+
+    def test_paper_overrides(self, subprocess, options):
+        options.paper_left = "5"
+        options.paper_width = "200"
+        options.paper_top = "7"
+        options.paper_height = "280"
+
+        Scanner(options)
+
+        args = subprocess.call.call_args[0][0]
+        assert args[-8:] == ["-l", "5", "-x", "200", "-t", "7", "-y", "280"]
 
     def test_base_folder(self, tmp_path, subprocess, options):
         os.chdir(tmp_path)

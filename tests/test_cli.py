@@ -4,7 +4,7 @@ from unittest.mock import PropertyMock, call, patch
 
 import pytest
 
-from scan_pdf.cli import parse_args, run
+from scan_pdf.cli import build_parser, parse_args, run
 from tests import Options
 
 
@@ -75,6 +75,54 @@ class TestParseArgs:
         assert options.paper_top == "20"
         assert options.paper_height == "300"
         assert options.paper_width == "200"
+
+    def test_help_texts(self):
+        parser = build_parser()
+
+        assert parser.description == "Produce PDF from Scanner with document-feeder"
+        assert {action.dest: action.help for action in parser._actions} == {
+            "help": "show this help message and exit",
+            "output_file_name": "name of the produced output file",
+            "device": "optional device locator",
+            "resolution": "scan resolution DPI (default: 300)",
+            "flatbed": "scan only one page from flatbed glass",
+            "debug": "enable debug output",
+            "duplex": "scan both sides of document",
+            "color_mode": "default: gray",
+            "threshold": "disabled by default",
+            "color_depth": None,
+            "paper_format": "default: A4",
+            "paper_left": "override left offset",
+            "paper_top": "override top offset",
+            "paper_height": "override paper height",
+            "paper_width": "override paper width",
+        }
+
+    @pytest.mark.parametrize("color_mode", ["bw", "gray", "color"])
+    def test_valid_color_mode(self, color_mode):
+        with patch("sys.argv", ["scan-pdf", "output.pdf", "--color-mode", color_mode]):
+            options = parse_args()
+
+        assert options.color_mode == color_mode
+
+    @pytest.mark.parametrize("paper_format", ["A3", "A4", "A5", "A6", "A7"])
+    def test_valid_paper_format(self, paper_format):
+        with patch(
+            "sys.argv", ["scan-pdf", "output.pdf", "--paper-format", paper_format]
+        ):
+            options = parse_args()
+
+        assert options.paper_format == paper_format
+
+    @pytest.mark.parametrize(
+        "option, value", [("--color-mode", "sepia"), ("--paper-format", "Letter")]
+    )
+    def test_invalid_choice(self, option, value):
+        with patch("sys.argv", ["scan-pdf", "output.pdf", option, value]):
+            with pytest.raises(SystemExit) as exc_info:
+                parse_args()
+
+        assert exc_info.value.code != 0
 
 
 class TestCli:
@@ -153,7 +201,9 @@ class TestCli:
         finally:
             os.chdir(cwd)
 
-        assert "no pages found" in caplog.text
+        assert caplog.record_tuples == [
+            ("scan_pdf.cli", logging.WARNING, "no pages found")
+        ]
         converter.assert_not_called()
         combiner.assert_not_called()
         shutil_move.assert_not_called()
@@ -198,3 +248,20 @@ class TestCli:
             run()
 
         basic_config.assert_called_once_with(level=logging.DEBUG)
+
+    def test_no_debug(self, parse_args, scanner, converter, combiner, shutil_move):
+        options = Options()
+        options.output_file_name = ["output1.pdf"]
+        options.debug = False
+        options.duplex = False
+        type(converter.return_value).page_file_suffix = PropertyMock(
+            return_value=".pnm"
+        )
+
+        parse_args.return_value = options
+        scanner.return_value.get_page_file_basenames.return_value = ["page1"]
+
+        with patch("scan_pdf.cli.logging.basicConfig") as basic_config:
+            run()
+
+        basic_config.assert_called_once_with(level=logging.INFO)

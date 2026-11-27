@@ -1,3 +1,4 @@
+import logging
 from unittest.mock import call, mock_open, patch
 
 import pytest
@@ -13,14 +14,22 @@ class TestCombine:
         with patch("pypdf.PdfWriter") as pdf_writer:
             yield pdf_writer()
 
-    def test_combine(self, pdf_writer):
+    def test_combine(self, pdf_writer, caplog):
         options = Options()
         options.output_file_name = ["output.pdf"]
 
         combiner = Combiner(options)
 
+        caplog.set_level(logging.DEBUG, logger="scan_pdf.combine")
+
         with patch("scan_pdf.combine.open", mock_open()) as mocked_open:
             combiner.combine(["foo", "bar"])
+
+            assert (
+                "scan_pdf.combine",
+                logging.INFO,
+                "combine 2 pages into output.pdf",
+            ) in caplog.record_tuples
 
             mocked_open.assert_called_with("output.pdf", "wb")
             pdf_writer.append.assert_has_calls([call("foo"), call("bar")])

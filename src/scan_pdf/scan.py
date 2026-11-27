@@ -3,17 +3,18 @@ import glob
 import logging
 import os
 import subprocess
+from dataclasses import dataclass
 from functools import cmp_to_key
 
 logger = logging.getLogger(__name__)
 
 
+@dataclass(frozen=True)
 class PaperFormat:
-    def __init__(self, left: int, width: int, top: int, height: int):
-        self.left: int = left
-        self.width: int = width
-        self.top: int = top
-        self.height: int = height
+    left: int
+    width: int
+    top: int
+    height: int
 
 
 class Scanner:
@@ -86,7 +87,7 @@ class Scanner:
 
         logger.debug("call %s", " ".join(args))
         retval = subprocess.call(args)
-        logger.debug("call retured %d", retval)
+        logger.debug("call returned %d", retval)
 
     def get_page_file_basenames(self) -> list[str]:
         output_files = glob.glob("out*" + self.page_file_suffix)
