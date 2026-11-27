@@ -8,7 +8,7 @@ from . import Options
 
 
 class TestCombine:
-    @pytest.fixture(scope="session", autouse=True)
+    @pytest.fixture(autouse=True)
     def pdf_writer(self):
         with patch("pypdf.PdfWriter") as pdf_writer:
             yield pdf_writer()
