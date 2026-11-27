@@ -4,11 +4,20 @@
 .. image:: https://badge.fury.io/py/scan-pdf.png
     :alt: PyPi-Package
     :target: https://badge.fury.io/py/scan-pdf
-.. image:: https://sonarcloud.io/api/project_badges/measure?project=wuan_scan-pdf&metric=duplicated_lines_density
-    :alt: Duplicated lines
+.. image:: https://sonarcloud.io/api/project_badges/measure?project=wuan_scan-pdf&metric=alert_status
+    :alt: Quality gate status
+    :target: https://sonarcloud.io/summary/new_code?id=wuan_scan-pdf
+.. image:: https://sonarcloud.io/api/project_badges/measure?project=wuan_scan-pdf&metric=ncloc
+    :alt: Lines of code
     :target: https://sonarcloud.io/summary/new_code?id=wuan_scan-pdf
 .. image:: https://sonarcloud.io/api/project_badges/measure?project=wuan_scan-pdf&metric=coverage
     :alt: Coverage
+    :target: https://sonarcloud.io/summary/new_code?id=wuan_scan-pdf
+.. image:: https://sonarcloud.io/api/project_badges/measure?project=wuan_scan-pdf&metric=duplicated_lines_density
+    :alt: Duplicated lines
+    :target: https://sonarcloud.io/summary/new_code?id=wuan_scan-pdf
+.. image:: https://sonarcloud.io/api/project_badges/measure?project=wuan_scan-pdf&metric=sqale_rating
+    :alt: Maintainability Rating
     :target: https://sonarcloud.io/summary/new_code?id=wuan_scan-pdf
 .. image:: https://api.scorecard.dev/projects/github.com/wuan/scan-pdf/badge
     :alt: OpenSSF Scorecard
